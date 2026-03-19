@@ -1,0 +1,5 @@
+{
+  "name": "صورني",
+  "description": "المنصة الشاملة لكل محترفي الإعلام ومعدات التصوير في مكان واحد - تطبيق صورني",
+  "requestFramePermissions": ["geolocation"]
+}
