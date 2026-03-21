@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Link as RouterLink } from 'react-router-dom';
 import { 
   Camera, 
   Video, 
@@ -7,12 +8,15 @@ import {
   Clapperboard, 
   PenTool, 
   Scissors, 
-  MapPin, 
   Menu,
   X,
   Apple,
   Play
 } from 'lucide-react';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import PaymentPolicy from './pages/PaymentPolicy';
+import ContactUs from './pages/ContactUs';
 
 // --- Constants ---
 const SPECIALTIES = [
@@ -55,7 +59,7 @@ const Navbar = () => {
         <div className="text-xl font-bold">صورني</div>
         <div className="hidden md:flex gap-4">
           {navItems.map(item => (
-            <a key={item.id} href={`#${item.id}`} className="text-blue-700 underline">{item.name}</a>
+            <a key={item.id} href={`/#${item.id}`} className="text-blue-700 underline">{item.name}</a>
           ))}
         </div>
         <button className="md:hidden border border-black p-1" onClick={() => setIsOpen(!isOpen)}>
@@ -65,7 +69,7 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden flex flex-col gap-1 mt-2 border-t border-black pt-2">
           {navItems.map(item => (
-            <a key={item.id} href={`#${item.id}`} className="text-blue-700 underline" onClick={() => setIsOpen(false)}>{item.name}</a>
+            <a key={item.id} href={`/#${item.id}`} className="text-blue-700 underline" onClick={() => setIsOpen(false)}>{item.name}</a>
           ))}
         </div>
       )}
@@ -73,7 +77,7 @@ const Navbar = () => {
   );
 };
 
-export default function App() {
+const Home = () => {
   return (
     <div className="p-2">
       <Navbar />
@@ -147,11 +151,19 @@ export default function App() {
           </div>
           <div>
             <h4 className="font-bold mb-2">روابط</h4>
-            <div className="flex justify-center gap-4 text-xs">
-              <a href="#hero" className="underline">الرئيسية</a>
-              <a href="#specialties" className="underline">التخصصات</a>
-              <a href="#rental" className="underline">تأجير</a>
-              <a href="#map" className="underline">الخريطة</a>
+            <div className="flex flex-col gap-2 text-xs">
+              <div className="flex justify-center gap-4">
+                <a href="/#hero" className="underline">الرئيسية</a>
+                <a href="/#specialties" className="underline">التخصصات</a>
+                <a href="/#rental" className="underline">تأجير</a>
+                <a href="/#map" className="underline">الخريطة</a>
+              </div>
+              <div className="flex justify-center gap-4 mt-2">
+                <RouterLink to="/privacy-policy" className="underline text-blue-700">سياسة الخصوصية</RouterLink>
+                <RouterLink to="/terms-of-service" className="underline text-blue-700">شروط الاستخدام</RouterLink>
+                <RouterLink to="/payment-policy" className="underline text-blue-700">سياسة الدفع وضمان الحقوق</RouterLink>
+                <RouterLink to="/contact-us" className="underline text-blue-700">اتصل بنا</RouterLink>
+              </div>
             </div>
           </div>
           <div>
@@ -164,5 +176,19 @@ export default function App() {
         </div>
       </footer>
     </div>
+  );
+};
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/payment-policy" element={<PaymentPolicy />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
